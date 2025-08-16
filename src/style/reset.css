@@ -10,6 +10,8 @@ html {
 	line-height: 1.5;
 	-webkit-text-size-adjust: 100%;
 	font-family: system-ui, sans-serif;
+
+	scroll-behavior: smooth;
 }
 
 body {
@@ -57,4 +59,11 @@ button {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		transition: none !important;
+		animation: none !important;
+	}
 }
