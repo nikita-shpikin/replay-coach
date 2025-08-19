@@ -1,4 +1,9 @@
-// # Точка входа
-import { initMenu } from './module/theme.js'
+import { loadTheme } from './module/settingsStore'
+import { initSwitcherTheme } from './module/themeManager'
 
-initMenu()
+const switcherTag = document.querySelector('.setting__switcher')
+
+document.addEventListener('DOMContentLoaded', () => {
+	loadTheme()
+	initSwitcherTheme(switcherTag)
+})
