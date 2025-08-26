@@ -135,6 +135,9 @@
 		0 0 8px var(--color-accent), 0 0 16px var(--color-accent);
 
 	transition: text-shadow 0.3s ease-out;
+
+	height: clamp(50px, 10vw, 100px);
+	width: clamp(300px, 50vw, 700px);
 }
 
 .setting__content-actions {
@@ -157,7 +160,7 @@
 	transition: background-color 0.3s ease-in, color 0.4s ease-out;
 
 	text-align: center;
-
+	font-size: clamp(14px, 1.8vw, 20px);
 	font-weight: 700;
 }
 
