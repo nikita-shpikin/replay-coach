@@ -138,6 +138,10 @@
 
 	height: clamp(50px, 10vw, 100px);
 	width: clamp(300px, 50vw, 700px);
+
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
 }
 
 .setting__content-actions {
