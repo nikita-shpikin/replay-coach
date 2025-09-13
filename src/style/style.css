@@ -32,6 +32,8 @@
 	font-size: clamp(22px, 4vw, 48px);
 	line-height: 1.4;
 
+	width: clamp(300px, 50vw, 700px);
+
 	color: var(--color-secondary);
 
 	transition: color 0.3s ease-out;
@@ -110,17 +112,17 @@
 
 .setting__content {
 	display: flex;
-	align-items: center;
-	justify-content: center;
 	gap: clamp(10px, 3.5vw, 80px);
+	justify-content: center;
 	flex-wrap: wrap;
 }
 
-.setting__content-value {
+.setting__content-block {
 	display: flex;
-	flex-direction: column;
+	justify-content: center;
 	align-items: center;
-	gap: clamp(10px, 1.5vw, 30px);
+	flex-wrap: wrap;
+	gap: clamp(10px, 3.5vw, 80px);
 }
 
 .setting__subtitle {
@@ -135,14 +137,13 @@
 		0 0 8px var(--color-accent), 0 0 16px var(--color-accent);
 
 	transition: text-shadow 0.3s ease-out;
-}
 
-.setting__content-actions {
+	height: clamp(50px, 10vw, 100px);
+	width: clamp(300px, 50vw, 700px);
+
 	display: flex;
 	align-items: center;
-	flex-direction: column;
-	justify-content: space-between;
-	gap: clamp(10px, 1.5vw, 30px);
+	justify-content: center;
 }
 
 .setting__btn {
@@ -157,7 +158,7 @@
 	transition: background-color 0.3s ease-in, color 0.4s ease-out;
 
 	text-align: center;
-
+	font-size: clamp(14px, 1.8vw, 20px);
 	font-weight: 700;
 }
 
@@ -173,7 +174,7 @@
 	justify-content: flex-start;
 	gap: clamp(10px, 2vw, 30px);
 
-	overflow-x: auto;
+	overflow-x: hidden;
 	scroll-snap-type: x mandatory;
 }
 
