@@ -32,6 +32,8 @@
 	font-size: clamp(22px, 4vw, 48px);
 	line-height: 1.4;
 
+	width: clamp(300px, 50vw, 700px);
+
 	color: var(--color-secondary);
 
 	transition: color 0.3s ease-out;
@@ -110,17 +112,17 @@
 
 .setting__content {
 	display: flex;
-	align-items: stretch;
-	justify-content: center;
 	gap: clamp(10px, 3.5vw, 80px);
+	justify-content: center;
 	flex-wrap: wrap;
 }
 
-.setting__content-value {
+.setting__content-block {
 	display: flex;
-	flex-direction: column;
+	justify-content: center;
 	align-items: center;
-	gap: clamp(10px, 1.5vw, 30px);
+	flex-wrap: wrap;
+	gap: clamp(10px, 3.5vw, 80px);
 }
 
 .setting__subtitle {
@@ -140,16 +142,8 @@
 	width: clamp(300px, 50vw, 700px);
 
 	display: flex;
-	align-items: flex-end;
-	justify-content: center;
-}
-
-.setting__content-actions {
-	display: flex;
 	align-items: center;
-	flex-direction: column;
-	justify-content: space-between;
-	gap: clamp(10px, 1.5vw, 30px);
+	justify-content: center;
 }
 
 .setting__btn {
@@ -180,7 +174,7 @@
 	justify-content: flex-start;
 	gap: clamp(10px, 2vw, 30px);
 
-	overflow-x: auto;
+	overflow-x: hidden;
 	scroll-snap-type: x mandatory;
 }
 
