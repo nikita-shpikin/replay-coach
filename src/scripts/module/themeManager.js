@@ -12,7 +12,7 @@ export function initSwitcherTheme(tag) {
 
 		saveTheme(newTheme)
 
-		const event = new CustomEvent('themechange', {
+		const event = new CustomEvent('themeColor', {
 			detail: {
 				theme: newTheme,
 			},
