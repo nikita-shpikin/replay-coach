@@ -1,7 +1,6 @@
 export function getRecommendedTopic(json) {
 	const btnNewTheme = document.querySelector(`[data-js='new-theme']`)
 	const subTitle = document.querySelector('.setting__subtitle')
-
 	const subtopics = json.boards.flatMap(board =>
 		board.topics.flatMap(topic => topic.subtopics)
 	)
