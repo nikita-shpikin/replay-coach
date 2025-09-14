@@ -23,5 +23,6 @@
 
 		// Отключаем требование именовать функции (например, function expressions)
 		"func-names": "off"
-	}
+	},
+	"indent": ["error", "tab"]
 }
