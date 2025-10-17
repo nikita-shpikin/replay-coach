@@ -1,3 +1,4 @@
+import { EXERCISES } from '../../data/exercises'
 import { store } from '../store'
 
 export function startPomodoroSession() {
@@ -110,6 +111,8 @@ function startBreakTimer() {
 	const endLongBreak = Date.now() + durationLongBreak
 	const endShortBreak = Date.now() + durationShortBreak
 
+	resetPomodoroContent()
+
 	const intervalBreakId = setInterval(() => {
 		const remainingLongBreak = endLongBreak - Date.now()
 		const remainingShortBreak = endShortBreak - Date.now()
@@ -139,6 +142,98 @@ function startBreakTimer() {
 			sec
 		).padStart(2, '0')}`
 	}, 100)
+
+	renderImageSlider()
+}
+
+function renderImageSlider() {
+	resetPomodoroContent()
+
+	const pomodoroContent = document.querySelector('.pomodoro__content')
+	const randomKey = getRandomKey(EXERCISES)
+	const exercises = EXERCISES[randomKey]
+	pomodoroContent.classList.add('pomodoro__content-exercises')
+
+	exercises.forEach(ex => {
+		const li = document.createElement('li')
+		li.classList.add('pomodoro__content-item')
+
+		const img = document.createElement('img')
+		img.classList.add('pomodoro__content-img')
+
+		img.src = `./src/assets/exercises/${ex.src}`
+		img.alt = ex.title
+		img.title = ex.title
+
+		li.appendChild(img)
+		pomodoroContent.appendChild(li)
+	})
+
+	let index = 0
+
+	function showSlide(i) {
+		const items = document.querySelectorAll('.pomodoro__content-item')
+
+		index = (i + items.length) % items.length
+
+		pomodoroContent.style.transform = `translateX(-${index * 80}%)`
+	}
+
+	document.addEventListener('keydown', e => {
+		if (e.key === 'ArrowRight') showSlide(index + 1)
+		if (e.key === 'ArrowLeft') showSlide(index - 1)
+	})
+
+	let startX = 0
+	let isDown = false
+
+	function onStart(e) {
+		isDown = true
+		startX = e.pageX || e.touches[0].pageX
+	}
+
+	function onMove(e) {
+		if (!isDown) return
+		const x = e.pageX || e.touches[0].pageX
+		const diff = x - startX
+
+		// если сдвиг больше 50px — листаем
+		if (diff > 50) {
+			showSlide(index - 1)
+			isDown = false
+		} else if (diff < -50) {
+			showSlide(index + 1)
+			isDown = false
+		}
+	}
+
+	function onEnd() {
+		isDown = false
+	}
+
+	pomodoroContent.addEventListener('mousedown', onStart)
+	pomodoroContent.addEventListener('mousemove', onMove)
+	pomodoroContent.addEventListener('mouseup', onEnd)
+	pomodoroContent.addEventListener('mouseleave', onEnd)
+
+	pomodoroContent.addEventListener('touchstart', onStart)
+	pomodoroContent.addEventListener('touchmove', onMove)
+	pomodoroContent.addEventListener('touchend', onEnd)
+}
+
+// Случайнный ключ объекта
+function getRandomKey(obj) {
+	const keys = Object.keys(obj)
+
+	const randomKey = Math.floor(Math.random() * keys.length)
+
+	return keys[randomKey]
+}
+
+// Очищение блока контента помодоро
+function resetPomodoroContent() {
+	const pomodoroContent = document.querySelector('.pomodoro__content')
+	pomodoroContent.innerHTML = ''
 }
 
 // 💡 Как это работает в цикле
