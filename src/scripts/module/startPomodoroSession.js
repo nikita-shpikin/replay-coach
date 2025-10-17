@@ -24,8 +24,6 @@ export function startPomodoroSession() {
 function startPomodoroTimer() {
 	const pomodoroTitle = document.querySelector('.pomodoro__title')
 	const workDuration = parseInt(localStorage.getItem('work-duration'), 10)
-	const setting = document.querySelector('.setting ')
-	const pomodoroBlock = document.querySelector('.pomodoro')
 
 	// Преобразует минуты в миллисекунды
 	// Почему: Всё в JavaScript работает с временем в миллисекундах. Твои "40" минут → 40 * 60 * 1000 = 2 400 000 миллисекунд.
@@ -49,15 +47,8 @@ function startPomodoroTimer() {
 		if (remainingTime <= 0) {
 			clearInterval(intervalId)
 
-			setting.classList.remove('setting--inactive')
-
-			setting?.scrollIntoView({
-				behavior: 'smooth',
-				block: 'start',
-			})
-
 			setTimeout(() => {
-				pomodoroBlock.classList.remove('pomodoro--active')
+				startBreakTimer()
 			}, 500)
 
 			return
@@ -71,6 +62,7 @@ function startPomodoroTimer() {
 		).padStart(2, '0')}`
 	}, 100)
 
+	// Вывод подайтемов в блоке помодоро
 	setTimeout(() => {
 		const pomodoroContent = document.querySelector('.pomodoro__content')
 
@@ -103,6 +95,50 @@ function startPomodoroTimer() {
 			pomodoroContent.appendChild(li)
 		})
 	}, 500)
+}
+
+function startBreakTimer() {
+	const pomodoroTitle = document.querySelector('.pomodoro__title')
+	const setting = document.querySelector('.setting ')
+	const pomodoroBlock = document.querySelector('.pomodoro')
+	const longBreak = parseInt(localStorage.getItem('long-duration'), 10)
+	const shortBreak = parseInt(localStorage.getItem('short-duration'), 10)
+
+	const durationLongBreak = longBreak * 60 * 1000
+	const durationShortBreak = shortBreak * 60 * 1000
+
+	const endLongBreak = Date.now() + durationLongBreak
+	const endShortBreak = Date.now() + durationShortBreak
+
+	const intervalBreakId = setInterval(() => {
+		const remainingLongBreak = endLongBreak - Date.now()
+		const remainingShortBreak = endShortBreak - Date.now()
+
+		// Обнуление
+		if (remainingShortBreak <= 0) {
+			clearInterval(intervalBreakId)
+
+			setting.classList.remove('setting--inactive')
+
+			setting?.scrollIntoView({
+				behavior: 'smooth',
+				block: 'start',
+			})
+
+			setTimeout(() => {
+				pomodoroBlock.classList.remove('pomodoro--active')
+			}, 500)
+
+			return
+		}
+
+		const min = Math.floor(remainingShortBreak / 60000)
+		const sec = Math.floor((remainingShortBreak % 60000) / 1000)
+
+		pomodoroTitle.textContent = `${String(min).padStart(2, '0')}:${String(
+			sec
+		).padStart(2, '0')}`
+	}, 100)
 }
 
 // 💡 Как это работает в цикле
