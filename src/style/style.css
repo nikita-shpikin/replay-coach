@@ -368,12 +368,38 @@
 
 .pomodoro--active {
 	display: flex;
+
+	overflow-x: hidden;
 }
 
 .pomodoro__content {
 	display: flex;
 	gap: 5px;
 	flex-wrap: wrap;
+}
+
+.pomodoro__content-exercises {
+	/* overflow: hidden; */
+
+	padding: 0;
+	margin: 0;
+
+	transition: transform 0.4s ease;
+
+	flex-wrap: nowrap;
+	gap: 20px;
+}
+
+.pomodoro__content-item {
+	flex: 0 0 80%;
+
+	cursor: grab;
+}
+
+.pomodoro__content-img {
+	width: 100%;
+	height: auto;
+	display: block;
 }
 
 .pomodoro__title {
