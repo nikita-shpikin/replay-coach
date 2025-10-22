@@ -217,7 +217,7 @@ function renderImageSlider() {
 	pomodoroContent.addEventListener('mouseleave', onEnd)
 
 	pomodoroContent.addEventListener('touchstart', onStart)
-	pomodoroContent.addEventListener('touchmove', onMove)
+	pomodoroContent.addEventListener('touchmove', onMove, { passive: true })
 	pomodoroContent.addEventListener('touchend', onEnd)
 }
 
