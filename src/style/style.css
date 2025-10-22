@@ -379,8 +379,6 @@
 }
 
 .pomodoro__content-exercises {
-	/* overflow: hidden; */
-
 	padding: 0;
 	margin: 0;
 
@@ -397,9 +395,12 @@
 }
 
 .pomodoro__content-img {
-	width: 100%;
+	width: clamp(200px, 80vw, 790px);
 	height: auto;
+
 	display: block;
+
+	border: clamp(2.4px, 0.18vw, 4px) solid var(--color-accent);
 }
 
 .pomodoro__title {
