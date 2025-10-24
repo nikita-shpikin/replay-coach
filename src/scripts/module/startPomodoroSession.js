@@ -84,7 +84,15 @@ function startPomodoroTimer() {
 					.writeText(li.textContent)
 					.then(() => {
 						// Оповещение
-						console.log('Скопировано:', li.textContent)
+						console.log(
+							`%cТЕМА:%c ${store.getState().title}\n%cПОДТЕМЫ:%c ${
+								li.textContent
+							}`,
+							'color: #4CAF50; font-weight: bold;',
+							'color: inherit;',
+							'color: #2196F3; font-weight: bold;',
+							'color: inherit;'
+						)
 
 						// Стиль при клике
 						li.style.color = '#ac9b64'
@@ -161,9 +169,12 @@ function renderImageSlider() {
 		const img = document.createElement('img')
 		img.classList.add('pomodoro__content-img')
 
-		img.src = `./src/assets/exercises/${ex.src}`
 		img.alt = ex.title
 		img.title = ex.title
+		img.width = 100
+		img.height = 100
+
+		img.src = `./src/assets/exercises/${ex.src}`
 
 		li.appendChild(img)
 		pomodoroContent.appendChild(li)
