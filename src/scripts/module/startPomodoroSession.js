@@ -2,6 +2,8 @@ import { EXERCISES } from '../../data/exercises'
 import { store } from '../store'
 
 // Клик на кнопку
+import { store } from '../store'
+
 export function startPomodoroSession() {
 	const startTheme = document.querySelector('[data-js="start-theme"]')
 	const pomodoroBlock = document.querySelector('.pomodoro')
@@ -30,6 +32,8 @@ export function startPomodoroSession() {
 function startPomodoroTimer() {
 	const pomodoroTitle = document.querySelector('.pomodoro__title')
 	const workDuration = parseInt(localStorage.getItem('work-duration'), 10)
+	const setting = document.querySelector('.setting ')
+	const pomodoroBlock = document.querySelector('.pomodoro')
 
 	// Преобразует минуты в миллисекунды
 	// Почему: Всё в JavaScript работает с временем в миллисекундах. Твои "40" минут → 40 * 60 * 1000 = 2 400 000 миллисекунд.
@@ -55,6 +59,15 @@ function startPomodoroTimer() {
 
 			setTimeout(() => {
 				startBreakTimer()
+			setting.classList.remove('setting--inactive')
+
+			setting?.scrollIntoView({
+				behavior: 'smooth',
+				block: 'start',
+			})
+
+			setTimeout(() => {
+				pomodoroBlock.classList.remove('pomodoro--active')
 			}, 500)
 
 			return
@@ -98,6 +111,7 @@ function startPomodoroTimer() {
 							'color: #2196F3; font-weight: bold;',
 							'color: inherit;'
 						)
+						console.log('Скопировано:', li.textContent)
 
 						// Стиль при клике
 						li.style.color = '#ac9b64'
