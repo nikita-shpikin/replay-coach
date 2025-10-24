@@ -1,5 +1,3 @@
-import { store } from '../store'
-
 export function getRecommendedTopic(json) {
 	const btnNewTheme = document.querySelector(`[data-js='new-theme']`)
 	const subTitle = document.querySelector('.setting__subtitle')
@@ -30,7 +28,11 @@ export function getRecommendedTopic(json) {
 
 		subTitle.textContent = item.title
 
-		store.setState(item)
+		const event = new CustomEvent('topicSelected', {
+			detail: item,
+		})
+
+		document.dispatchEvent(event)
 	}
 
 	// Случайная тема с учётом пройденного

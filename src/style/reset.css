@@ -19,13 +19,6 @@ body {
 	text-rendering: optimizeLegibility;
 
 	background-color: var(--color-accent);
-
-	overflow: -moz-scrollbars-none; /* Firefox */
-	-ms-overflow-style: none; /* IE/Edge */
-}
-
-body::-webkit-scrollbar {
-	display: none; /* Chrome, Safari, Opera */
 }
 
 a {
