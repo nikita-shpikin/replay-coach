@@ -11,5 +11,13 @@ export function initSwitcherTheme(tag) {
 		applyTheme(newTheme)
 
 		saveTheme(newTheme)
+
+		const event = new CustomEvent('themechange', {
+			detail: {
+				theme: newTheme,
+			},
+		})
+
+		window.dispatchEvent(event)
 	})
 }
