@@ -1,12 +1,17 @@
 import { EXERCISES } from '../../data/exercises'
 import { store } from '../store'
 
+// Клик на кнопку
 export function startPomodoroSession() {
 	const startTheme = document.querySelector('[data-js="start-theme"]')
 	const pomodoroBlock = document.querySelector('.pomodoro')
 	const setting = document.querySelector('.setting ')
 
 	startTheme?.addEventListener('click', () => {
+		let countStart = Number(sessionStorage.getItem('sessionCount')) || 0
+		countStart++
+		sessionStorage.setItem('sessionCount', countStart)
+
 		pomodoroBlock.classList.add('pomodoro--active')
 
 		document.querySelector('.pomodoro')?.scrollIntoView({
@@ -125,8 +130,17 @@ function startBreakTimer() {
 		const remainingLongBreak = endLongBreak - Date.now()
 		const remainingShortBreak = endShortBreak - Date.now()
 
+		let countStart = Number(sessionStorage.getItem('sessionCount')) || 0
+		let remainingBreak
+
+		if (countStart % 3 === 0) {
+			remainingBreak = remainingLongBreak
+		} else {
+			remainingBreak = remainingShortBreak
+		}
+
 		// Обнуление
-		if (remainingShortBreak <= 0) {
+		if (remainingBreak <= 0) {
 			clearInterval(intervalBreakId)
 
 			setting.classList.remove('setting--inactive')
@@ -143,8 +157,8 @@ function startBreakTimer() {
 			return
 		}
 
-		const min = Math.floor(remainingShortBreak / 60000)
-		const sec = Math.floor((remainingShortBreak % 60000) / 1000)
+		const min = Math.floor(remainingBreak / 60000)
+		const sec = Math.floor((remainingBreak % 60000) / 1000)
 
 		pomodoroTitle.textContent = `${String(min).padStart(2, '0')}:${String(
 			sec
@@ -180,19 +194,19 @@ function renderImageSlider() {
 		pomodoroContent.appendChild(li)
 	})
 
-	let index = 0
+	let indexExercises = 0
 
 	function showSlide(i) {
 		const items = document.querySelectorAll('.pomodoro__content-item')
 
-		index = (i + items.length) % items.length
+		indexExercises = (i + items.length) % items.length
 
-		pomodoroContent.style.transform = `translateX(-${index * 80}%)`
+		pomodoroContent.style.transform = `translateX(-${indexExercises * 80}%)`
 	}
 
 	document.addEventListener('keydown', e => {
-		if (e.key === 'ArrowRight') showSlide(index + 1)
-		if (e.key === 'ArrowLeft') showSlide(index - 1)
+		if (e.key === 'ArrowRight') showSlide(indexExercises + 1)
+		if (e.key === 'ArrowLeft') showSlide(indexExercises - 1)
 	})
 
 	let startX = 0
@@ -210,10 +224,10 @@ function renderImageSlider() {
 
 		// если сдвиг больше 50px — листаем
 		if (diff > 50) {
-			showSlide(index - 1)
+			showSlide(indexExercises - 1)
 			isDown = false
 		} else if (diff < -50) {
-			showSlide(index + 1)
+			showSlide(indexExercises + 1)
 			isDown = false
 		}
 	}
