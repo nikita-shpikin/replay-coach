@@ -346,18 +346,49 @@
 	scroll-snap-align: start;
 }
 
+.setting__list-title {
+	color: var(--color-secondary);
+	font-size: clamp(24px, 16px + 2vw, 40px);
+}
+
 .setting__topic {
-	padding-left: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.setting__topic-item {
+}
+
+.setting__list-subtitle {
+	color: var(--color-secondary);
+	font-size: clamp(18px, 12px + 1.2vw, 28px);
+}
+
+.setting__subtopic {
+	padding-left: 15px;
 
 	display: flex;
 	flex-direction: column;
 }
 
-.setting__subtopic {
-	padding-left: 10px;
+.setting__subtopic-item {
+}
 
-	display: flex;
-	flex-direction: column;
+.setting__subtopic-title {
+	color: var(--color-secondary);
+	font-size: clamp(16px, 12px + 1vw, 24px);
+}
+
+.setting__items {
+	padding-left: 20px;
+}
+
+.setting__items-item {
+	color: var(--color-secondary);
+
+	list-style-type: circle;
+
+	color: var(--color-secondary);
 }
 
 .pomodoro {
