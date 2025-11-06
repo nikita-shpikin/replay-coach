@@ -340,10 +340,35 @@
 	background: transparent;
 
 	border: 2px solid var(--color-accent);
-	border-radius: 34px;
+	border-radius: 4px;
 
-	overflow-y: auto;
+	overflow: auto;
+
 	scroll-snap-align: start;
+	scrollbar-gutter: stable both-edges;
+}
+
+.setting__list-item::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+.setting__list-item::-webkit-scrollbar-track {
+	background: rgb(130, 129, 127, 0.2);
+
+	border-radius: 4px;
+}
+
+.setting__list-item::-webkit-scrollbar-thumb {
+	background: rgb(130, 129, 127);
+
+	border-radius: 4px;
+
+	cursor: pointer;
+}
+
+.setting__list-item::-webkit-scrollbar-thumb:hover {
+	background: rgba(130, 129, 127, 0.5);
 }
 
 .setting__list-title {
@@ -380,15 +405,14 @@
 }
 
 .setting__items {
-	padding-left: 20px;
+	padding-left: 30px;
 }
 
 .setting__items-item {
-	color: var(--color-secondary);
-
 	list-style-type: circle;
 
 	color: var(--color-secondary);
+	font-size: clamp(15px, 13.57px + 0.446vw, 20px);
 }
 
 .pomodoro {
@@ -508,5 +532,12 @@
 		background-color: var(--color-accent);
 
 		box-shadow: 0 0 8px var(--color-accent), 0 0 16px var(--color-accent);
+	}
+}
+
+@-moz-document url-prefix() {
+	.setting__list-item {
+		scrollbar-width: thin;
+		scrollbar-color: rgb(130, 129, 127) rgb(130, 129, 127, 0.2);
 	}
 }
