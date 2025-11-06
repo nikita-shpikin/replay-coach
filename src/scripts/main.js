@@ -1,6 +1,7 @@
 import boards from '../data/topics.json'
 import { loadPomodoroSettings, pomodoro } from './module/pomodoro.js'
 import { getRecommendedTopic } from './module/recommendTopic'
+import { renderBoards } from './module/renderBoards.js'
 import { loadTheme } from './module/settingsStore'
 import { startPomodoroSession } from './module/startPomodoroSession.js'
 import { initSwitcherTheme } from './module/themeManager'
@@ -14,4 +15,5 @@ document.addEventListener('DOMContentLoaded', () => {
 	pomodoro()
 	loadPomodoroSettings()
 	startPomodoroSession()
+	renderBoards()
 })
