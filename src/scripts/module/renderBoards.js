@@ -6,9 +6,6 @@ export async function renderBoards() {
 	)
 	const topicsData = await response.json()
 
-	console.log(response, topicsData)
-
-	// Генерируем HTML для досок
 	let boardsHTML = ''
 	if (topicsData.boards && topicsData.boards.length > 0) {
 		boardsHTML = topicsData.boards
@@ -60,10 +57,9 @@ export async function renderBoards() {
 			.join('')
 	}
 
-	// Добавляем кнопку "Добавить доску" в любом случае
 	const addBoardHTML = `
-    <div class="setting__list-item">
-      <button class="add-board-btn">+ Добавить доску</button>
+    <div class="setting__list-item setting__list-add">
+      <button class="setting__list-btn">+ Добавить доску</button>
     </div>
   `
 
