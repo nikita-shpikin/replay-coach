@@ -1,13 +1,36 @@
+import { createBoard } from './createBoard.js'
+
 export async function renderBoards() {
 	const boardsContainer = document.querySelector('.setting__list')
 
+	// вызываем отдельную функцию для отрисовки
+	await drawBoards(boardsContainer)
+
+	// навешиваем обработчик на кнопку
+	const addBoardBtn = boardsContainer.querySelector('.setting__list-btn')
+	addBoardBtn.addEventListener('click', async () => {
+		const titleBoard = prompt('Название доски?')
+		const token = prompt('Напишите ваш GitHub токен:')
+
+		try {
+			await createBoard(titleBoard, token)
+
+			await drawBoards(boardsContainer)
+		} catch (err) {
+			alert('Токен не подходит или ошибка при обновлении gist')
+			console.error(err)
+		}
+	})
+}
+
+async function drawBoards(container) {
 	const response = await fetch(
 		'https://gist.githubusercontent.com/nikita-shpikin/aea1123cacc02e47ca75e3655118f624/raw/topics.json'
 	)
 	const topicsData = await response.json()
 
 	let boardsHTML = ''
-	if (topicsData.boards && topicsData.boards.length > 0) {
+	if (topicsData.boards?.length > 0) {
 		boardsHTML = topicsData.boards
 			.map(board => {
 				return `
@@ -63,5 +86,5 @@ export async function renderBoards() {
     </div>
   `
 
-	boardsContainer.innerHTML = boardsHTML + addBoardHTML
+	container.innerHTML = boardsHTML + addBoardHTML
 }
