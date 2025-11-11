@@ -25,7 +25,8 @@ export async function renderBoards() {
 
 async function drawBoards(container) {
 	const response = await fetch(
-		'https://gist.githubusercontent.com/nikita-shpikin/aea1123cacc02e47ca75e3655118f624/raw/topics.json'
+		'https://gist.githubusercontent.com/nikita-shpikin/aea1123cacc02e47ca75e3655118f624/raw/topics.json?nocache=' +
+			Date.now()
 	)
 	const topicsData = await response.json()
 
