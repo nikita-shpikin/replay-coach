@@ -59,6 +59,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+	z-index: 3;
 
 	width: 100%;
 	height: 100%;
@@ -212,6 +213,7 @@
 
 .setting__btn-icon {
 	position: relative;
+	z-index: 3;
 
 	width: clamp(40px, 3vw, 68px);
 	height: clamp(40px, 3vw, 68px);
@@ -235,6 +237,7 @@
 	border-radius: 34px;
 
 	position: relative;
+	z-index: 3;
 
 	cursor: pointer;
 
@@ -326,6 +329,45 @@
 	scroll-snap-type: x mandatory;
 }
 
+.setting__list::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+.setting__list::-webkit-scrollbar-track {
+	background: rgb(130, 129, 127, 0.2);
+
+	border-radius: 4px;
+}
+
+.setting__list::-webkit-scrollbar-thumb {
+	background: rgb(130, 129, 127);
+
+	border-radius: 4px;
+
+	cursor: pointer;
+}
+
+.setting__list::-webkit-scrollbar-thumb:hover {
+	background: rgba(130, 129, 127, 0.8);
+}
+
+.setting__list::-webkit-scrollbar-thumb:active {
+	background: var(--color-secondary);
+}
+
+.setting__list-btn {
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	color: var(--color-secondary);
+	font-size: clamp(18px, 12px + 1.2vw, 28px);
+}
+
 .setting__list-item {
 	padding: clamp(10px, 1.5vw, 20px);
 
@@ -336,24 +378,117 @@
 	background: transparent;
 
 	border: 2px solid var(--color-accent);
-	border-radius: 34px;
+	border-radius: 4px;
 
-	overflow-y: auto;
+	overflow: auto;
+
 	scroll-snap-align: start;
+	scrollbar-gutter: stable both-edges;
+
+	position: relative;
+}
+
+.setting__list-delete {
+	position: absolute;
+	right: 9px;
+	top: 9px;
+	z-index: 2;
+
+	font-size: clamp(18px, 12px + 1.2vw, 28px);
+	color: var(--color-accent);
+
+	border: solid 0.7px var(--color-accent);
+	border-radius: 50%;
+
+	padding: 0 5px;
+
+	transition: background-color 0.4s ease-in 0.1s, color 0.3s ease-out;
+}
+
+.setting__list-delete:hover {
+	color: var(--color-secondary);
+
+	background-color: var(--color-accent);
+}
+
+.setting__list-add {
+	border-style: dashed;
+
+	opacity: 0.5;
+
+	transition: opacity 0.2s ease-in;
+}
+
+.setting__list-add:hover {
+	opacity: 0.8;
+}
+
+.setting__list-item::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+.setting__list-item::-webkit-scrollbar-track {
+	background: rgb(130, 129, 127, 0.2);
+
+	border-radius: 4px;
+}
+
+.setting__list-item::-webkit-scrollbar-thumb {
+	background: rgb(130, 129, 127);
+
+	border-radius: 4px;
+
+	cursor: pointer;
+}
+
+.setting__list-item::-webkit-scrollbar-thumb:hover {
+	background: rgba(130, 129, 127, 0.8);
+}
+
+.setting__list-item::-webkit-scrollbar-thumb:active {
+	background-color: var(--color-secondary);
+}
+
+.setting__list-title {
+	color: var(--color-secondary);
+	font-size: clamp(24px, 16px + 2vw, 40px);
 }
 
 .setting__topic {
-	padding-left: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.setting__list-subtitle {
+	color: var(--color-secondary);
+	font-size: clamp(18px, 12px + 1.2vw, 28px);
+}
+
+.setting__subtopic {
+	padding-left: 15px;
 
 	display: flex;
 	flex-direction: column;
 }
 
-.setting__subtopic {
-	padding-left: 10px;
+.setting__subtopic-item {
+}
 
-	display: flex;
-	flex-direction: column;
+.setting__subtopic-title {
+	color: var(--color-secondary);
+	font-size: clamp(16px, 12px + 1vw, 24px);
+}
+
+.setting__items {
+	padding-left: 30px;
+}
+
+.setting__items-item {
+	list-style-type: circle;
+
+	color: var(--color-secondary);
+	font-size: clamp(15px, 13.57px + 0.446vw, 20px);
 }
 
 .pomodoro {
@@ -473,5 +608,12 @@
 		background-color: var(--color-accent);
 
 		box-shadow: 0 0 8px var(--color-accent), 0 0 16px var(--color-accent);
+	}
+}
+
+@-moz-document url-prefix() {
+	.setting__list-item {
+		scrollbar-width: thin;
+		scrollbar-color: rgb(130, 129, 127) rgb(130, 129, 127, 0.2);
 	}
 }
