@@ -1,13 +1,15 @@
 import { createBoard } from './createBoard.js'
+import { deleteBoard } from './deleteBoard.js'
+import { getBoards } from './serviceBoards.js'
 
 export async function renderBoards() {
 	const boardsContainer = document.querySelector('.setting__list')
 
-	// вызываем отдельную функцию для отрисовки
 	await drawBoards(boardsContainer)
 
-	// навешиваем обработчик на кнопку
 	const addBoardBtn = boardsContainer.querySelector('.setting__list-btn')
+	const listBoard = document.querySelector('.setting__list')
+
 	addBoardBtn.addEventListener('click', async () => {
 		const titleBoard = prompt('Название доски?')
 		const token = prompt('Напишите ваш GitHub токен:')
@@ -20,6 +22,22 @@ export async function renderBoards() {
 			alert('Токен не подходит или ошибка при обновлении gist')
 			console.error(err)
 		}
+	})
+
+	listBoard.addEventListener('click', async e => {
+		const btnDelete = e.target.closest('.setting__list-delete')
+
+		console.log(getBoards())
+
+		if (!btnDelete) return
+
+		const idBtn = btnDelete.dataset.id
+
+		if (!idBtn) return
+
+		if (btnDelete.disabled) return
+
+		await deleteBoard(btnDelete, idBtn)
 	})
 }
 
@@ -35,7 +53,8 @@ async function drawBoards(container) {
 		boardsHTML = topicsData.boards
 			.map(board => {
 				return `
-          <div class="setting__list-item">
+          <div class="setting__list-item" data-id="${board.id}">
+						<button data-id="${board.id}" class='setting__list-delete'>&#x2717;</button>
             <h2 class="setting__list-title">${board.title}</h2>
             <ul class="setting__topic">
               ${board.topics
